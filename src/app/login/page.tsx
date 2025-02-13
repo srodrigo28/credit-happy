@@ -12,7 +12,7 @@ export default function Login(){
     <div className="bg-green-600 flex flex-col p-10 h-screen">
 
       <div className="h-96 flex justify-center items-center" data-aos="fade-down" data-aos-delay="500" >
-        <Image width={300} height={100} src="/picpay-blanc.png" alt="" />
+        <Image width={300} height={100} src="/logoPay.png" alt="" />
       </div>
       
       <div className="flex-1 flex lg:flex-col flex-col mb-20 items-center justify-center gap-3" data-aos="fade-up" data-aos-delay="900" >
