@@ -3,15 +3,15 @@ import { NextRequest, NextResponse, type MiddlewareConfig } from "next/server";
 // 1. ROTAS VALIDAS
 const publicRoutes = [
     { path: '/login', whenAuthenticated: 'redirect'},
+    { path: '/dashboard', whenAuthenticated: 'next'},
     { path: '/', whenAuthenticated: 'redirect'},
-    { path: '/dashboard', whenAuthenticated: 'next'}
 ] as const
 
 const REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE = '/'
 
 
 // 3. NUCLEO DE VALIDAÇÃO
-export function middleware(request: NextRequest){
+export function middleware(request: NextRequest) {
     const path = request.nextUrl.pathname
     const publicRoute = publicRoutes.find(route => route.path === path)
     const authToken = request.cookies.get('token')
@@ -31,7 +31,7 @@ export function middleware(request: NextRequest){
     if(authToken && publicRoute && publicRoute.whenAuthenticated === 'redirect'){
         const redirectUrl = request.nextUrl.clone()
         
-        redirectUrl.pathname = '/'
+        redirectUrl.pathname = '/dashboard'
 
         return NextResponse.redirect(redirectUrl)
     }
@@ -40,14 +40,13 @@ export function middleware(request: NextRequest){
     if(authToken && !publicRoute){
         return NextResponse.next()
     }
-
-
+    
     console.log('funcionou')
     return NextResponse.next()
 }
 
 
-// 2. CONFIG DOC
+// 2. CONFIG DOC TODOS OS INDEREÇOS PADRÕES LIBERADOS
 export const config: MiddlewareConfig = {
     matcher: [
         /*
